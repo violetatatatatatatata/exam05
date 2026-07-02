@@ -1,40 +1,50 @@
-#pragma once
+#ifndef HTTP_BIGINT
+#define HTTP_BIGINT
 
-# include <iostream>
-# include <algorithm>
+#include <iostream>
+#include <sstream>
+#include <string>
+#include <cstdlib>
 
-class	bigint
+class bigint
 {
-	public:
-		bigint(unsigned int nbr = 0) : _big(std::to_string(nbr)) {};
-		bigint(const bigint &other) : _big(other._big) {};
+private:
+    std::string _str;
 
-		std::string	getBig() const { return (_big); };
+public:
+    bigint();
+    bigint(unsigned int num);
+    bigint(const bigint &obj);
+    bigint &operator=(const bigint &obj);
 
-		// Additions
-		bigint	operator+(const bigint &other) const;
-		bigint	&operator+=(const bigint &other);
+    std::string getStr() const;
 
-		// Increments
-		bigint	&operator++();		// ++x
-		bigint	operator++(int);	// x++
+    bigint &operator+=(const bigint &obj);
+    bigint operator+(const bigint &obj) const;
 
-		// Shifts
-		bigint	operator<<(unsigned int amount) const;
-		bigint	&operator<<=(unsigned int amount);
-		bigint	&operator>>=(const bigint &other);
+    bigint &operator++();
+    bigint operator++(int);
 
-		// Comparisons
-		bool	operator<(const bigint &other) const;
-		bool	operator>(const bigint &other) const;
-		bool	operator<=(const bigint &other) const;
-		bool	operator>=(const bigint &other) const;
-		bool	operator==(const bigint &other) const;
-		bool	operator!=(const bigint &other) const;
+    // shift with num
+    bigint operator<<(unsigned int num) const;
+    bigint operator>>(unsigned int num) const;
+    bigint &operator<<=(unsigned int num);
+    bigint &operator>>=(unsigned int num);
 
-	private:
-		std::string	_big;
+    // shift with obj
+    bigint operator<<(const bigint &obj) const;
+    bigint operator>>(const bigint &obj) const;
+    bigint &operator<<=(const bigint &obj);
+    bigint &operator>>=(const bigint &obj);
+
+    bool operator<(const bigint &obj) const;
+    bool operator>(const bigint &obj) const;
+    bool operator<=(const bigint &obj) const;
+    bool operator>=(const bigint &obj) const;
+    bool operator==(const bigint &obj) const;
+    bool operator!=(const bigint &obj) const;
 };
 
-// Ostream
-std::ostream	&operator<<(std::ostream &out, const bigint &other);
+std::ostream &operator<<(std::ostream &os, const bigint &obj);
+
+#endif

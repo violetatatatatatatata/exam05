@@ -1,46 +1,45 @@
-#pragma once
+#ifndef HTTP_VECT2
+#define HTTP_VECT2
 
-# include <iostream>
+#include <iostream>
+#include <sstream>
 
-class	vect2
+class vect2
 {
-	public:
-		vect2(int x = 0, int y = 0) : _x(x), _y(y) {};
-		vect2(const vect2 &other) : _x(other._x), _y(other._y) {};
-		vect2	&operator=(const vect2 &other);
+private:
+    int _x;
+    int _y;
 
-		// Accesses
-		int	operator[](int index) const;
-		int	&operator[](int index);
+public:
+    vect2();
+    vect2(int num1, int num2);
+    vect2(const vect2 &obj);
+    vect2 &operator=(const vect2 &obj);
 
-		// Increments & Decrements
-		vect2	&operator++();		// ++x
-		vect2	operator++(int);	// x++
-		vect2	&operator--();		// --x
-		vect2	operator--(int);	// x--
+    int operator[](int index) const;
+    int &operator[](int index);
 
-		// Maths
-		vect2	operator+(const vect2 &other) const;
-		vect2	&operator+=(const vect2 &other);
+    vect2 &operator++();
+    vect2 operator++(int);
+    vect2 &operator--();
+    vect2 operator--(int);
 
-		vect2	operator-(const vect2 &other) const;
-		vect2	&operator-=(const vect2 &other);
+    vect2 &operator+=(const vect2 &obj);
+    vect2 &operator-=(const vect2 &obj);
+    vect2 &operator*=(int num);
 
-		vect2	operator*(int scalar) const;
-		vect2	&operator*=(int scalar);
+    vect2 operator+(const vect2 &obj) const;
+    vect2 operator-(const vect2 &obj) const;
+    vect2 operator*(int num) const;
 
-		// Unary Minus
-		vect2	operator-() const;
+    vect2 operator-() const;
 
-		// Comparisons
-		bool	operator==(const vect2 &other) const;
-		bool	operator!=(const vect2 &other) const;
-
-	private:
-		int	_x;
-		int	_y;
+    bool operator==(const vect2 &obj) const;
+    bool operator!=(const vect2 &obj) const;
 };
 
-vect2	operator*(int scalar, const vect2 &other);
+vect2 operator*(int num, const vect2 &obj);
 
-std::ostream	&operator<<(std::ostream &out, const vect2 &other);
+std::ostream &operator<<(std::ostream &os, const vect2 &obj);
+
+#endif

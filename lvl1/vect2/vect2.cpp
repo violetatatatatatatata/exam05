@@ -1,113 +1,150 @@
 #include "vect2.hpp"
 
-vect2	&vect2::operator=(const vect2 &other)
+vect2::vect2()
 {
-	if (this != &other)
-	{
-		_x = other._x;
-		_y = other._y;
-	}
-	return (*this);
+    _x = 0;
+    _y = 0;
 }
 
-int	vect2::operator[](int index) const { return index == 0 ? _x : _y; }
-int	&vect2::operator[](int index) { return index == 0 ? _x : _y; }
-
-vect2	&vect2::operator++()
+vect2::vect2(int num1, int num2)
 {
-	++_x;
-	++_y;
-	return (*this);
+    _x = num1;
+    _y = num2;
 }
 
-vect2	vect2::operator++(int)
+vect2::vect2(const vect2 &obj)
 {
-	vect2	copy(*this);
-	++_x;
-	++_y;
-	return (copy);
+    *this = obj;
 }
 
-vect2	&vect2::operator--()
+vect2 &vect2::operator=(const vect2 &obj)
 {
-	--_x;
-	--_y;
-	return (*this);
+    if (this != &obj)
+    {
+        _x = obj._x;
+        _y = obj._y;
+    }
+    return *this;
 }
 
-vect2	vect2::operator--(int)
+int vect2::operator[](int index) const
 {
-	vect2	copy(*this);
-	--_x;
-	--_y;
-	return (copy);
+    if (index == 0)
+        return _x;
+    return _y;
 }
 
-vect2	vect2::operator+(const vect2 &other) const
+int &vect2::operator[](int index)
 {
-	vect2	copy(*this);
-	copy._x += other._x;
-	copy._y += other._y;
-	return (copy);
+    if (index == 0)
+        return _x;
+    return _y;
 }
 
-vect2	&vect2::operator+=(const vect2 &other)
+vect2 &vect2::operator++()
 {
-	_x += other._x;
-	_y += other._y;
-	return (*this);
+    ++_x;
+    ++_y;
+    return *this;
 }
 
-vect2	vect2::operator-(const vect2 &other) const
+vect2 vect2::operator++(int)
 {
-	vect2	copy(*this);
-	copy._x -= other._x;
-	copy._y -= other._y;
-	return (copy);
+    vect2 tmp(*this);
+    ++_x;
+    ++_y;
+    return tmp;
 }
 
-vect2	&vect2::operator-=(const vect2 &other)
+vect2 &vect2::operator--()
 {
-	_x -= other._x;
-	_y -= other._y;
-	return (*this);
+    --_x;
+    --_y;
+    return *this;
 }
 
-vect2	vect2::operator*(int scalar) const
+vect2 vect2::operator--(int)
 {
-	vect2	copy(*this);
-	copy._x *= scalar;
-	copy._y *= scalar;
-	return (copy);
+    vect2 tmp(*this);
+    --_x;
+    --_y;
+    return tmp;
 }
 
-vect2	&vect2::operator*=(int scalar)
+vect2 &vect2::operator+=(const vect2 &obj)
 {
-	_x *= scalar;
-	_y *= scalar;
-	return (*this);
+    _x = _x + obj._x;
+    _y = _y + obj._y;
+    return *this;
 }
 
-vect2	vect2::operator-() const
+vect2 &vect2::operator-=(const vect2 &obj)
 {
-	vect2	copy(*this);
-	copy._x = -copy._x;
-	copy._y = -copy._y;
-	return (copy);
+    _x = _x - obj._x;
+    _y = _y - obj._y;
+    return *this;
 }
 
-bool	vect2::operator==(const vect2 &other) const { return (_x == other._x && _y == other._y); }
-bool	vect2::operator!=(const vect2 &other) const { return (_x != other._x || _y != other._y); }
-
-vect2	operator*(int scalar, const vect2 &other)
+vect2 &vect2::operator*=(int num)
 {
-	vect2	copy(other);
-	copy *= scalar;
-	return (copy);
+    _x = _x * num;
+    _y = _y * num;
+    return *this;
 }
 
-std::ostream	&operator<<(std::ostream &out, const vect2 &other)
+vect2 vect2::operator+(const vect2 &obj) const
 {
-	out << "{" << other[0] << ", " << other[1] << "}";
-	return (out);
+    vect2 tmp(*this);
+    tmp._x = tmp._x + obj._x;
+    tmp._y = tmp._y + obj._y;
+    return tmp;
+}
+
+vect2 vect2::operator-(const vect2 &obj) const
+{
+    vect2 tmp(*this);
+    tmp._x = tmp._x - obj._x;
+    tmp._y = tmp._y - obj._y;
+    return tmp;
+}
+
+vect2 vect2::operator*(int num) const
+{
+    vect2 tmp(*this);
+    tmp._x = tmp._x * num;
+    tmp._y = tmp._y * num;
+    return tmp;
+}
+
+vect2 vect2::operator-() const
+{
+    vect2 tmp(*this);
+    tmp._x = -tmp._x;
+    tmp._y = -tmp._y;
+    return tmp;
+}
+
+bool vect2::operator==(const vect2 &obj) const
+{
+    if ((_x == obj._x) && (_y == obj._y))
+        return true;
+    return false;
+}
+
+bool vect2::operator!=(const vect2 &obj) const
+{
+    return (!(*this == obj));
+}
+
+vect2 operator*(int num, const vect2 &obj)
+{
+    vect2 tmp(obj);
+    tmp *= num;
+    return tmp;
+}
+
+std::ostream &operator<<(std::ostream &os, const vect2 &obj)
+{
+    os << "{" << obj[0] << ", " << obj[1] << "}";
+    return os;
 }
